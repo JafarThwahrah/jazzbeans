@@ -1,4 +1,11 @@
-<?php include_once "methods.php"; ?>
+<?php require_once "./php/conn.php";
+include_once "./methods.php";
+$id = $_REQUEST["p_id"];
+$product = getSingleProduct($id);
+//  print_r($product);
+//  die;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,16 +35,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mb-5 ftco-animate">
-					<a href="product img url" class="image-popup"><img src="product img url" class="img-fluid" alt="Colorlib Template" /></a>
+					<a href="product img url" class="image-popup"><img src="<?php echo ($product["img"]); ?>" class="img-fluid" alt="Colorlib Template" /></a>
 				</div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
-					<h3>Product name</h3>
-					<p class="price"><span>Price</span></p>
-					<p>Description</p>
-					<p>Description</p>
+					<h3><?php echo ($product["name"]); ?></h3>
+					<p class="price"><span><?php echo ($product["price"]); ?> JOD</span></p>
+					<p><?php echo ($product["short_desc"]); ?></p>
+					<br>
+					<p><?php echo ($product["description"]); ?></p>
 					<div class="row mt-4">
 						<div class="w-100"></div>
-						<div class="input-group col-md-6 d-flex mb-3">
+						<!-- <div class="input-group col-md-6 d-flex mb-3">
 							<span class="input-group-btn mr-2">
 								<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
 									<i class="icon-minus"></i>
@@ -49,7 +57,7 @@
 									<i class="icon-plus"></i>
 								</button>
 							</span>
-						</div>
+						</div> -->
 					</div>
 					<p>
 						<a href="cart.html" class="btn btn-primary py-3 px-5">Add to Cart</a>
@@ -58,7 +66,10 @@
 			</div>
 		</div>
 	</section>
-
+	<!-- Related Section  -->
+	<?php
+	$pCateg = $product["category_id"];
+	?>
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
@@ -69,34 +80,30 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-3">
-					<div class="menu-entry">
-						<a href="#" class="img" style="background-image: url(images/menu-1.jpg)"></a>
-						<div class="text text-center pt-4">
-							<h3><a href="#">Coffee Capuccino</a></h3>
-							<p>
-								A small river named Duden flows by their place and supplies
-							</p>
-							<p class="price"><span>$5.90</span></p>
-							<p>
-								<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-							</p>
+				<?php
+				$arr = getProductsFromCategory($pCateg);
+				shuffle($arr);
+				for ($i = 0; $i < count($arr) && $i < 4; $i++) { ?>
+
+					<div class="col-md-3">
+						<div class="menu-entry">
+							<a href="http://localhost/jazzbeans/product-single.php?p_id=<?php echo ($arr[$i]["id"]); ?>" class="img" style="background-image: url(<?php echo ($arr[$i]["img"]); ?>)"></a>
+							<div class="text text-center pt-4">
+								<h3><a href="http://localhost/jazzbeans/product-single.php?p_id=<?php echo ($arr[$i]["id"]); ?>"><?php echo ($arr[$i]["name"]); ?></a></h3>
+								<p>
+									<?php echo ($arr[$i]["short_desc"]); ?>
+								</p>
+								<p class="price"><span><?php echo ($arr[$i]["price"]); ?></span></p>
+								<p>
+									<a href="?p_id=" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="menu-entry">
-						<a href="product-single.html" class="img" style="background-image: url(product img url)"></a>
-						<div class="text text-center pt-4">
-							<h3><a href="product-single.html">product name</a></h3>
-							<p>short description</p>
-							<p class="price"><span>product price</span></p>
-							<p>
-								<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-							</p>
-						</div>
-					</div>
-				</div>
+
+				<?php
+				}
+				?>
 			</div>
 		</div>
 	</section>

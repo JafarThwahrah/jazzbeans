@@ -1,4 +1,18 @@
-<?php include_once "methods.php"; ?>
+<?php require_once "./php/conn.php";
+include_once "./methods.php";
+$product1 = getSingleProduct(1);
+$product2 = getSingleProduct(2);
+$product3 = getSingleProduct(3);
+$product4 = getSingleProduct(4);
+
+$product5 = getSingleProduct(5);
+$product6 = getSingleProduct(6);
+$product7 = getSingleProduct(7);
+$product8 = getSingleProduct(8);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,7 +20,10 @@
 	<title>Jazz Beans</title>
 	<?php include "header.php"; ?>
 	<!-- END nav -->
+	<?php
+	getAllProduct();
 
+	?>
 	<section class="home-slider owl-carousel">
 		<div class="slider-item" style="background-image: url(images/bg_1.jpg)">
 			<div class="overlay"></div>
@@ -239,19 +256,30 @@
 			</div>
 			<div class="row">
 				<!--Add 4 cards only-->
-				<div class="col-md-3">
-					<div class="menu-entry">
-						<a href="./product-single.php" class="img" style="background-image: url(product img)"></a>
-						<div class="text text-center pt-4">
-							<h3><a href="./product-single.php">product name</a></h3>
-							<p>short description</p>
-							<p class="price"><span>product price</span></p>
-							<p>
-								<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-							</p>
+				<?php
+
+				$newPro = array_reverse(getAllProduct());
+				for ($i = 0; $i < 4; $i++) { ?>
+
+
+
+
+
+
+					<div class="col-md-3">
+						<div class="menu-entry">
+							<a href="./product-single.php?p_id=<?php echo ($newPro[$i]["id"]); ?>" class="img" style="background-image: url(<?php echo ($newPro[$i]["img"]); ?>)"></a>
+							<div class="text text-center pt-4">
+								<h3><a href="./product-single.php?p_id=<?php echo ($newPro[$i]["id"]); ?>"><?php echo ($newPro[$i]["name"]); ?></a></h3>
+								<p><?php echo ($newPro[$i]["short_desc"]); ?></p>
+								<p class="price"><span><?php echo ($newPro[$i]["price"]); ?></span></p>
+								<p>
+									<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</section>
@@ -304,19 +332,30 @@
 			</div>
 			<div class="row">
 				<!--only 4 cards-->
-				<div class="col-md-3">
-					<div class="menu-entry">
-						<a href="./product-single.php" class="img" style="background-image: url(product img)"></a>
-						<div class="text text-center pt-4">
-							<h3><a href="./product-single.php">product name</a></h3>
-							<p>short description</p>
-							<p class="price"><span>price</span></p>
-							<p>
-								<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-							</p>
+				<?php
+				$desArr = getProductsWithDiscount();
+				shuffle($desArr);
+				for ($i = 0; $i < count($desArr) && $i < 4; $i++) { ?>
+
+					<div class="col-md-3">
+						<div class="menu-entry">
+							<a href="./product-single.php?p_id=<?php echo ($desArr[$i]["id"]); ?>" class="img" style="background-image: url(<?php echo ($desArr[$i]["img"]); ?>)"></a>
+							<div class="text text-center pt-4">
+								<h3><a href="./product-single.php?p_id=<?php echo ($desArr[$i]["id"]); ?>"><?php echo ($desArr[$i]["name"]); ?></a></h3>
+								<p><?php echo ($desArr[$i]["short_desc"]); ?></p>
+								<p class="price"> <span> <?php echo ($desArr[$i]["discount"]); ?></span>
+									<span>
+										<h6 class="Secondary text"> <s><?php echo ($desArr[$i]["price"]); ?></s></h6>
+									</span>
+								</p>
+								<p>JOD</p>
+								<p>
+									<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</section>

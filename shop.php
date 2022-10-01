@@ -1,4 +1,7 @@
-<?php include_once "methods.php"; ?>
+<?php
+include "./php/conn.php";
+include_once "methods.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,115 +36,135 @@
 								<div class="row">
 									<div class="col-md-12 nav-link-wrap mb-5">
 										<div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-											<a class="nav-link active" id="v-pills-0-tab" data-toggle="pill" href="#v-pills-0" role="tab" aria-controls="v-pills-0" aria-selected="true">Coffee</a>
+											<!--  -->
+											<a class="nav-link active" id="v-pills-a-tab" data-toggle="pill" href="#v-pills-a" role="tab" aria-controls="v-pills-a" aria-selected="true">All Products </a>
+											<?php
+											$allCategory = getAllCategories();
+											foreach ($allCategory as $category) {
+											?>
+												<a class="nav-link" id="v-pills-<?php echo $category["id"]; ?>-tab" data-toggle="pill" href="#v-pills-<?php echo $category["id"]; ?>" role="tab" aria-controls="v-pills-<?php echo $category["id"]; ?>" aria-selected="true"><?php echo $category["name"]; ?></a>
+											<?php
+											}
+											?>
 
-											<a class="nav-link" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="false">Coffee Machines</a>
 
-											<a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Coffee Capsuls</a>
 
-											<a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Accessories</a>
 										</div>
 									</div>
 									<div class="col-md-12 d-flex align-items-center">
+
 										<div class="tab-content ftco-animate" id="v-pills-tabContent">
+
 											<!--Bill-0 Coffee-->
-											<div class="tab-pane fade show active" id="v-pills-0" role="tabpanel" aria-labelledby="v-pills-0-tab">
+											<div class="tab-pane fade show active" id="v-pills-a" role="tabpanel" aria-labelledby="v-pills-a-tab">
 												<div class="row">
-													<div class="col-md-3">
-														<div class="menu-entry">
-															<a href="product-single.html" class="img" style="
-                                    background-image: url(product img from DB);
-                                  "></a>
-															<div class="text text-center pt-4">
-																<h3>
-																	<a href="product-single.html">product name from DB</a>
-																</h3>
-																<p>product short description from DB</p>
-																<p class="price">
-																	<span>product price from DB</span>
-																</p>
-																<p>
-																	<a href="cart.html" class="btn btn-primary btn-outline-primary">Add to Cart</a>
-																</p>
+													<?php
+
+													$allProduct = getAllProduct();
+													if (isset($_POST['srch'])) {
+														$search = $_POST['srch'];
+														$pattern = "$search";
+														$sql = "SELECT * FROM products WHERE products . name REGEXP '$pattern' ";
+
+														$query = connect()->prepare($sql);
+
+
+														$query->execute();
+														$results = $query->fetchAll();
+														// var_dump($results);
+														foreach ($results as $result) {
+													?>
+															<div class="col-md-3">
+																<div class="menu-entry">
+																	<a href="product-single.php?p_id=<?php echo $result["id"]; ?>" class="img" style="
+                                                              background-image: url(<?php echo $result["img"]; ?>);
+                                                                "></a>
+																	<div class="text text-center pt-4">
+																		<h3>
+																			<a href="product-single.php?p_id=<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></a>
+																		</h3>
+																		<p><?php echo $result["short_desc"]; ?></p>
+																		<p class="price">
+																			<span><?php echo $result["price"] . "$"; ?></span>
+																		</p>
+																		<p>
+																			<a href="cart.php?ip_id=<?php echo $result["id"]; ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+																		</p>
+																	</div>
+																</div>
 															</div>
-														</div>
-													</div>
+
+														<?php
+
+
+
+														}
+													} else {
+														foreach ($allProduct as $product) {
+														?>
+															<div class="col-md-3">
+																<div class="menu-entry">
+																	<a href="product-single.php?p_id=<?php echo $product["id"]; ?>" class="img" style="
+                                                              background-image: url(<?php echo $product["img"]; ?>);
+                                                                "></a>
+																	<div class="text text-center pt-4">
+																		<h3>
+																			<a href="product-single.php?p_id=<?php echo $product["id"]; ?>"><?php echo $product["name"]; ?></a>
+																		</h3>
+																		<p><?php echo $product["short_desc"]; ?></p>
+																		<p class="price">
+																			<span><?php echo $product["price"] . "$"; ?></span>
+																		</p>
+																		<p>
+																			<a href="cart.php?p_id=<?php echo $product["id"]; ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+																		</p>
+																	</div>
+																</div>
+															</div>
+													<?php }
+													} ?>
 												</div>
 											</div>
 
-											<!--Bill-1 Machines-->
-											<div class="tab-pane fade" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-												<div class="row">
-													<div class="col-md-4 text-center">
-														<div class="menu-wrap">
-															<a href="product-single.html" class="menu-img img mb-4" style="
-                                    background-image: url(product img from DB);
-                                  "></a>
-															<div class="text">
-																<h3>
-																	<a href="product-single.html">product name from DB</a>
-																</h3>
-																<p>product description from DB</p>
-																<p class="price">
-																	<span>product price from DB</span>
-																</p>
-																<p>
-																	<a href="cart.html" class="btn btn-primary btn-outline-primary">Add to cart</a>
-																</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+											<!--Bill-0 Coffee-->
+											<?php
+											foreach ($allCategory as $category) {
+											?>
+												<div class="tab-pane fade show" id="v-pills-<?php echo $category["id"]; ?>" role="tabpanel" aria-labelledby="v-pills-<?php echo $category["id"]; ?>-tab">
+													<div class="row">
+														<?php
+														$products = getProductsFromCategory($category["id"]);
 
-											<!--Bill-2 Capsuls-->
-											<div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-												<div class="row">
-													<div class="col-md-4 text-center">
-														<div class="menu-wrap">
-															<a href="#" class="menu-img img mb-4" style="
-                                    background-image: url(product img from DB);
-                                  "></a>
-															<div class="text">
-																<h3>
-																	<a href="product-single.html">product name from DB</a>
-																</h3>
-																<p>Product description from DB</p>
-																<p class="price">
-																	<span>product price from DB</span>
-																</p>
-																<p>
-																	<a href="cart.html" class="btn btn-primary btn-outline-primary">Add to cart</a>
-																</p>
+														foreach ($products as $product) {
+
+														?>
+															<div class="col-md-4 text-center">
+																<div class="menu-wrap">
+																	<a href="product-single.php?p_id=<?php echo $product["id"]; ?>" class="menu-img img mb-4" style="
+                                                              background-image: url(<?php echo $product["img"]; ?>);
+                                                                 "></a>
+																	<div class="text">
+																		<h3>
+																			<a href="product-single.php?p_id=<?php echo $product["id"]; ?>"><?php echo $product["name"]; ?></a>
+																		</h3>
+																		<p><?php echo $product["short_desc"]; ?></p>
+																		<p class="price">
+																			<span><?php echo $product["price"] . "$"; ?></span>
+																		</p>
+																		<p>
+																			<a href="cart.php?p_id=<?php echo $product["id"]; ?>" class="btn btn-primary btn-outline-primary">Add to cart</a>
+																		</p>
+																	</div>
+																</div>
 															</div>
-														</div>
+														<?php }
+
+														?>
 													</div>
 												</div>
-											</div>
-											<!--Bill- Accessories-->
-											<div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-												<div class="row">
-													<div class="col-md-4 text-center">
-														<div class="menu-wrap">
-															<a href="product-single.html" class="menu-img img mb-4" style="
-                                    background-image: url(product img from DB);
-                                  "></a>
-															<div class="text">
-																<h3>
-																	<a href="product-single.html">product name from DB</a>
-																</h3>
-																<p>product description from DB</p>
-																<p class="price">
-																	<span>product price from DB</span>
-																</p>
-																<p>
-																	<a href="cart.html" class="btn btn-primary btn-outline-primary">Add to cart</a>
-																</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+											<?php } ?>
+
+
 										</div>
 									</div>
 								</div>
@@ -153,30 +176,23 @@
 
 				<div class="col-xl-4 sidebar ftco-animate">
 					<div class="sidebar-box">
-						<form action="#" class="search-form">
+						<form action="shop.php" method="post" class="search-form">
 							<div class="form-group">
 								<div class="icon">
 									<span class="icon-search"></span>
 								</div>
-								<input type="text" class="form-control" placeholder="Search..." />
+								<p>
+									<a href="shop.php" class="btn btn-primary btn-outline-primary">Clear Filters</a>
+								</p>
+								<input type="text" class="form-control" name="srch" placeholder="Search..." required />
+
 							</div>
 						</form>
 					</div>
 					<div class="sidebar-box ftco-animate">
 						<div class="categories">
-							<h3>Categories</h3>
-							<li>
-								<a href="#">Coffee<span>(12)</span></a>
-							</li>
-							<li>
-								<a href="#">Coffee Machines<span>(7)</span></a>
-							</li>
-							<li>
-								<a href="#">Coffee Capsuls<span>(17)</span></a>
-							</li>
-							<li>
-								<a href="#">Accessories<span>(12)</span></a>
-							</li>
+
+
 						</div>
 					</div>
 

@@ -35,16 +35,16 @@
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.php" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="index.html/#about" class="nav-link">About</a>
+            <a href="index.php/#about" class="nav-link">About</a>
           </li>
           <li class="nav-item">
-            <a href="./shop.html" class="nav-link">Shop</a>
+            <a href="./shop.php" class="nav-link">Shop</a>
           </li>
           <li class="nav-item">
-            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="contact.php" class="nav-link">Contact</a>
           </li><?php
                 session_start();
 

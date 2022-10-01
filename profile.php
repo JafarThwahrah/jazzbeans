@@ -1,5 +1,4 @@
-<?php include_once "./php/conn.php"; ?>
-
+<?php include "./php/conn.php"; ?>
 
 <?php include_once "methods.php"; ?>
 
@@ -22,10 +21,21 @@
     $results = $query->fetchAll(PDO::FETCH_OBJ);
     foreach ($results as $result) {
 
+
     ?>
 
 
-        <form name=" editForm" action="000" id="editForm" method="POST">
+
+
+
+        <!-- enctype added for the uploaded file also remove action="000" -->
+
+
+
+
+
+
+        <form name=" editForm" action="" id="editForm" method="POST" enctype="multipart/form-data">
 
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,27 +50,47 @@
 
 
 
+
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" name="usrname" value="<?php echo ($result->name); ?>" id="username" placeholder="username">
                                 <label for="username">Full Name</label>
+                                <input type="text" class="form-control" name="usrname" value="<?php echo ($result->name); ?>" id="username" placeholder="username">
                             </div>
 
 
 
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" name="email" value="<?php echo ($result->email); ?>" id="email" placeholder="name@example.com">
                                 <label for="email">Email address</label>
+
+                                <input type="email" class="form-control" name="email" value="<?php echo ($result->email); ?>" id="email" placeholder="name@example.com">
                             </div>
+
+
+                            <div class="form-floating mb-3">
+                                <label for="phone">Phone number</label>
+
+                                <input type="text" class="form-control" name="phone" value="<?php echo ($result->phone); ?>" id="phone" placeholder="phone">
+                            </div>
+
 
                             <div class="form-floating">
-                                <input type="password" class="form-control" value="<?php echo ($result->pwd); ?>" name="pass" id="password" placeholder="Password">
                                 <label for="password">New Password</label>
+
+                                <input type="password" class="form-control" value="<?php echo ($result->pwd); ?>" name="pass" id="password" placeholder="Password">
                             </div>
 
                             <div class="form-floating mt-3">
-                                <input type="date" class="form-control" name="dob" value="<?php echo ($result->dob); ?>" id="dob" placeholder="Date of birth">
                                 <label for="cpassword">Date of birth</label>
+
+                                <input type="date" class="form-control" name="dob" value="<?php echo ($result->dob); ?>" id="dob" placeholder="Date of birth">
                             </div>
+
+
+                            <div class="form-floating mb-3">
+                                <label for="address">Address</label>
+
+                                <input type="text" class="form-control" name="address" value="<?php echo ($result->address); ?>" id="address" placeholder="address">
+                            </div>
+
 
                             <div class="mt-2">
                                 <label for="photo" class="form-label">Personal Photo</label>
@@ -71,7 +101,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a value="edit" type="submit" name="editFormBtn" id="editFormBtn" class="btn btn-primary" href="updateuser.php?id=<?php $userID; ?>">edit</a>
+                            <button value="edit" type="submit" name="editFormBtn" id="editFormBtn" class="btn btn-primary">edit</button>
 
                         </div>
                     </div>
@@ -82,9 +112,41 @@
 
 
 
-        <!-- END nav -->
 
 
+
+
+        <!-- Editing the user information -->
+
+
+
+
+
+
+
+
+        <?php
+        if (isset($_POST['editFormBtn'])) {
+            $usrname = $_POST['usrname'];
+            $pass = $_POST['pass'];
+            $dob = $_POST['dob'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $phone = $_POST['phone'];
+
+            $filename = $_FILES["photo"]["name"];
+            $tempname = $_FILES["photo"]["tmp_name"];
+
+
+
+            $folder = "./images/" . $filename;
+            move_uploaded_file($tempname, $folder);
+
+            editUser($userID, $usrname, $address, $phone, $email, $pass, $dob, $folder);
+            echo "<script> window.location = 'http://localhost/jazzbeans/profile.php'</script>";
+        }
+
+        ?>
 
 
 
@@ -95,7 +157,7 @@
                 <div class="col-lg-4">
                     <div class="card mb-4 text-dark" style="background: rgba(255, 255, 255, 0.159); backdrop-filter: blur(2px);">
                         <div class="card-body text-center">
-                            <img src="<?php echo ($result->img); ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                            <img src="<?php echo ($result->img); ?>" alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height:143px">
                             <h5 class="my-3 text-white   "><?php echo ($result->name); ?></h5>
                             <p class="text-muted mb-1">Full Stack Developer</p>
                             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
@@ -193,6 +255,8 @@
                                     <th>invoice Number</th>
                                     <th>Order date</th>
                                     <th>Total Price</th>
+                                    <th>View order</th>
+
 
                                 </thead>
                                 <tbody>

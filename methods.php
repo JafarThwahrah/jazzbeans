@@ -1,5 +1,5 @@
 <?php
-include "./php/conn.php";
+
 // products========================================================
 
 // fun to get single product
@@ -9,8 +9,9 @@ function getSingleProduct($id)
     $stmt->execute(array($id));
 
 
-    return $stmt->fetchAll();
+    return $stmt->fetch();
 }
+// print_r(getSingleProduct(1));
 // fun to get all products
 function getAllProduct()
 {
@@ -66,7 +67,7 @@ function getUserInfo($id)
     $stmt->execute(array($id));
 
 
-    return $stmt->fetchAll();
+    return $stmt->fetch();
 }
 
 
@@ -75,6 +76,15 @@ function getInvoicesForUser($userId)
 {
     $stmt = connect()->prepare('SELECT * FROM invoice WHERE user_id = ?;');
     $stmt->execute(array($userId));
+
+
+    return $stmt->fetchAll();
+}
+// fun to get all invoices 
+function getAllInvoices()
+{
+    $stmt = connect()->prepare('SELECT * FROM invoice ;');
+    $stmt->execute();
 
 
     return $stmt->fetchAll();
@@ -100,12 +110,12 @@ function getInvoicesDetails($id)
     return $productsForInvoice;
 }
 // fun to edit user data by user 
-function editUser($name, $address, $phone, $email, $pwd, $dob, $img)
+function editUser($id, $name, $address, $phone, $email, $pwd, $dob, $img)
 {
     $stmt = connect()->prepare(
-        "UPDATE users_info SET (name, address, phone, email, pwd, dob, img) VALUES (?,?,?,?,?,?,?)"
+        "UPDATE users_info SET (name, address, phone, email, pwd, dob, img) VALUES (?,?,?,?,?,?,?) WHERE id = ?"
     );
-    $stmt->execute(array($name, $address, $phone, $email, $pwd, $dob, $img));
+    $stmt->execute(array($name, $address, $phone, $email, $pwd, $dob, $img, $id));
     $users = $stmt->fetchAll();
     return $users;
 }
@@ -119,8 +129,7 @@ function getAllUsers()
         "SELECT * FROM users_info;"
     );
     $stmt->execute();
-    $users = $stmt->fetchAll();
-    return $users;
+    return $stmt->fetchAll();
 }
 // fun to get one user
 function getOneUser($id)
@@ -138,8 +147,7 @@ function editUserAdmin($id, $name, $address, $phone, $email, $pwd, $dob, $img, $
     $stmt = connect()->prepare(
         "UPDATE users_info SET name=?, address=?, phone=?, email=?, pwd=?, dob=?, img=?, role=?  WHERE id =? "
     );
-    $stmt->execute(array($name, $address, $phone, $email, $pwd, $dob, $img, $role, $id));
-    header("http://localhost/jazzbeans/admin.php");
+    return  $stmt->execute(array($name, $address, $phone, $email, $pwd, $dob, $img, $role, $id));
 }
 // fun to del any user
 function delUser($id)
@@ -147,8 +155,7 @@ function delUser($id)
     $stmt = connect()->prepare(
         "DELETE FROM users_info WHERE id = ?;"
     );
-    $stmt->execute(array($id));
-    header("http://localhost/jazzbeans/admin.php");
+    return  $stmt->execute(array($id));
 }
 // fun to get all categories PS: its in the products section
 
@@ -158,17 +165,19 @@ function createCategory($name, $img, $description)
     $stmt = connect()->prepare(
         "INSERT INTO categories (name, img, description) VALUES (?,?,?) ;"
     );
-    $stmt->execute(array($name, $img, $description));
-    header("http://localhost/jazzbeans/admin.php");
+    return $stmt->execute(array($name, $img, $description));
 }
 // fun to edit any category
 function editCategory($id, $name, $img, $description)
 {
     $stmt = connect()->prepare(
-        "UPDATE users_info SET name=?, img=?, description=?  WHERE id =? "
+        "UPDATE categories SET name=?, img=?, description=?  WHERE id =? "
     );
-    $stmt->execute(array($name, $img, $description, $id));
-    header("http://localhost/jazzbeans/admin.php");
+    if ($stmt->execute(array($name, $img, $description, $id))) {
+        return true;
+    } else {
+        return false;
+    }
 }
 // fun to del any category
 function delCategory($id)
@@ -176,8 +185,15 @@ function delCategory($id)
     $stmt = connect()->prepare(
         "DELETE FROM categories WHERE id = ?;"
     );
+    return   $stmt->execute(array($id));
+}
+function getCategory($id)
+{
+    $stmt = connect()->prepare(
+        "SELECT * FROM categories WHERE id = ?;"
+    );
     $stmt->execute(array($id));
-    header("http://localhost/jazzbeans/admin.php");
+    return   $stmt->fetch();
 }
 // fun to get all products P.S its in the products section
 
@@ -187,17 +203,19 @@ function createProduct($name, $price, $discount, $category_id, $description, $sh
     $stmt = connect()->prepare(
         "INSERT INTO products (name, price, discount, category_id, description, short_desc, img, tags) VALUES (?,?,?,?,?,?,?,?) ;"
     );
-    $stmt->execute(array($name, $price, $discount, $category_id, $description, $short_desc, $img, $tags));
-    header("http://localhost/jazzbeans/admin.php");
+    if ($stmt->execute(array($name, $price, $discount, $category_id, $description, $short_desc, $img, $tags))) {
+        return true;
+    } else {
+        return false;
+    }
 }
 // fun to edit any product
-function editProduct($id, $name, $price, $discount, $category_id, $description, $short_desc, $img, $tags)
+function editProduct($id, $name, $price, $discount, $category_id, $description, $short_desc, $img, $tags, $published)
 {
     $stmt = connect()->prepare(
-        "UPDATE products SET name=?, price=?, discount=?, category_id=?, description=?, short_desc=?, img=?, tags=?   WHERE id =? "
+        "UPDATE products SET name=?, price=?, discount=?, category_id=?, description=?, short_desc=?, img=?, tags=?, publish=?   WHERE id =? "
     );
-    $stmt->execute(array($name, $price, $discount, $category_id, $description, $short_desc, $img, $tags, $id));
-    header("http://localhost/jazzbeans/admin.php");
+    return $stmt->execute(array($name, $price, $discount, $category_id, $description, $short_desc, $img, $tags, $published, $id));
 }
 // fun to del any product
 function delProduct($id)
@@ -205,10 +223,8 @@ function delProduct($id)
     $stmt = connect()->prepare(
         "DELETE FROM products WHERE id = ?;"
     );
-    $stmt->execute(array($id));
-    header("http://localhost/jazzbeans/admin.php");
+    return $stmt->execute(array($id));
 }
-
 // checkout========
 
 // send To the Product Page for any Product any where just remember to echo its "id" after u run the function 
