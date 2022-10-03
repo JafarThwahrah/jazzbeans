@@ -37,7 +37,7 @@ $product8 = getSingleProduct(8);
 							machines, and the classiest accessories.
 						</p>
 						<p>
-							<a href="./shop.html" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a>
+							<a href="./shop.php" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a>
 						</p>
 					</div>
 				</div>
@@ -56,7 +56,7 @@ $product8 = getSingleProduct(8);
 							can help you achieve that!
 						</p>
 						<p>
-							<a href="./shop.html" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a>
+							<a href="./shop.php" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a>
 						</p>
 					</div>
 				</div>
@@ -117,28 +117,7 @@ $product8 = getSingleProduct(8);
 		</div>
 	</section>
 
-	<section class="ftco-about d-md-flex" id="about">
-		<div class="one-half img" style="background-image: url(images/about.jpg)"></div>
-		<div class="one-half ftco-animate">
-			<div class="overlap">
-				<div class="heading-section ftco-animate">
-					<span class="subheading">Discover</span>
-					<h2 class="mb-4">Our Story</h2>
-				</div>
-				<div>
-					<p>
-						In COVID-19 dark days, the importance of online stores has
-						increased and the need to serve customers to ensure their safety
-						and our workers' safety has emerged. Our team consists of coffee
-						experts, baristas, and people with a passion for coffee. We import
-						the finest coffee from all over the world, contract with the best
-						coffee machines and equipment brands, and choose the most useful
-						and practical accessories for you.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
+
 
 	<section class="ftco-section ftco-services">
 		<div class="container">
@@ -248,7 +227,7 @@ $product8 = getSingleProduct(8);
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
-				<div class="col-md-7 heading-section ftco-animate text-center">
+				<div class="col-md-7 col-sm-6 heading-section ftco-animate text-center">
 					<span class="subheading">Discover</span>
 					<h2 class="mb-4">Our Newest Products</h2>
 					<p></p>
@@ -268,13 +247,18 @@ $product8 = getSingleProduct(8);
 
 					<div class="col-md-3">
 						<div class="menu-entry">
-							<a href="./product-single.php?p_id=<?php echo ($newPro[$i]["id"]); ?>" class="img" style="background-image: url(<?php echo ($newPro[$i]["img"]); ?>)"></a>
+							<a href="./product-single.php?p_id=<?php echo ($newPro[$i]["id"]); ?>" class="img" style="background-image: url(<?php $imgg = ltrim($newPro[$i]["img"], ".");
+																																			echo "." . $imgg;  ?>)"></a>
 							<div class="text text-center pt-4">
 								<h3><a href="./product-single.php?p_id=<?php echo ($newPro[$i]["id"]); ?>"><?php echo ($newPro[$i]["name"]); ?></a></h3>
 								<p><?php echo ($newPro[$i]["short_desc"]); ?></p>
-								<p class="price"><span><?php echo ($newPro[$i]["price"]); ?></span></p>
+								<h6><span><?php echo ($newPro[$i]["price"]) . " JOD";  ?></span></h6>
 								<p>
-									<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+									<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $newPro[$i]['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
 								</p>
 							</div>
 						</div>
@@ -288,32 +272,33 @@ $product8 = getSingleProduct(8);
 		<div class="container-wrap">
 			<div class="row no-gutters">
 				<div class="col-md-3 ftco-animate">
-					<a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-1.jpg)">
-						<div class="icon mb-4 d-flex align-items-center justify-content-center">
-							<span class="icon-search"></span>
-						</div>
-					</a>
+					<!-- <a href="" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-1.jpg)"> -->
+					<img class="gallery img d-flex align-items-center" src="images/gallery-1.jpg" alt="">
+					<!-- </a> -->
 				</div>
 				<div class="col-md-3 ftco-animate">
-					<a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-2.jpg)">
+					<!-- <a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-2.jpg)">
 						<div class="icon mb-4 d-flex align-items-center justify-content-center">
 							<span class="icon-search"></span>
 						</div>
-					</a>
+					</a> -->
+					<img class="gallery img d-flex align-items-center" src="images/gallery-2.jpg" alt="">
 				</div>
 				<div class="col-md-3 ftco-animate">
-					<a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-3.jpg)">
+					<!-- <a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-3.jpg)">
 						<div class="icon mb-4 d-flex align-items-center justify-content-center">
 							<span class="icon-search"></span>
 						</div>
-					</a>
+					</a> -->
+					<img class="gallery img d-flex align-items-center" src="images/gallery-3.jpg" alt="">
 				</div>
 				<div class="col-md-3 ftco-animate">
-					<a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-4.jpg)">
+					<!-- <a href="gallery.html" class="gallery img d-flex align-items-center" style="background-image: url(images/gallery-4.jpg)">
 						<div class="icon mb-4 d-flex align-items-center justify-content-center">
 							<span class="icon-search"></span>
 						</div>
-					</a>
+					</a> -->
+					<img class="gallery img d-flex align-items-center" src="images/gallery-4.jpg" alt="">
 				</div>
 			</div>
 		</div>
@@ -339,18 +324,23 @@ $product8 = getSingleProduct(8);
 
 					<div class="col-md-3">
 						<div class="menu-entry">
-							<a href="./product-single.php?p_id=<?php echo ($desArr[$i]["id"]); ?>" class="img" style="background-image: url(<?php echo ($desArr[$i]["img"]); ?>)"></a>
+							<a href="./product-single.php?p_id=<?php echo ($desArr[$i]["id"]); ?>" class="img" style="background-image: url(<?php $imgg = ltrim($desArr[$i]["img"], ".");
+																																			echo "." . $imgg;  ?>)"></a>
 							<div class="text text-center pt-4">
 								<h3><a href="./product-single.php?p_id=<?php echo ($desArr[$i]["id"]); ?>"><?php echo ($desArr[$i]["name"]); ?></a></h3>
 								<p><?php echo ($desArr[$i]["short_desc"]); ?></p>
-								<p class="price"> <span> <?php echo ($desArr[$i]["discount"]); ?></span>
-									<span>
-										<h6 class="Secondary text"> <s><?php echo ($desArr[$i]["price"]); ?></s></h6>
-									</span>
-								</p>
-								<p>JOD</p>
+								<h6> <span> <?php echo ($desArr[$i]["discount"]) . " JOD"; ?> </span></h6>
+								<span>
+									<p class="Secondary text"> <s><?php echo ($desArr[$i]["price"]) . " JOD"; ?></s></p>
+								</span>
+
+
 								<p>
-									<a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+									<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $desArr[$i]['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
 								</p>
 							</div>
 						</div>
@@ -360,132 +350,7 @@ $product8 = getSingleProduct(8);
 		</div>
 	</section>
 
-	<section class="ftco-section img" id="ftco-testimony" style="background-image: url(images/bg_1.jpg)" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row justify-content-center mb-5">
-				<div class="col-md-7 heading-section text-center ftco-animate">
-					<span class="subheading">Testimony</span>
-					<h2 class="mb-4">Customers Says</h2>
-					<p>
-						The honest endorsement of our products and services from our loyal
-						customers.
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="container-wrap">
-			<div class="row d-flex no-gutters">
-				<div class="col-lg align-self-sm-end ftco-animate">
-					<div class="testimony">
-						<blockquote>
-							<p>
-								&ldquo;With this machine I can easily create an authentic
-								top-quality coffee at home, thanks to Jazz Beans store's
-								convenience and coffee expertise.&rdquo;
-							</p>
-						</blockquote>
-						<div class="author d-flex mt-4">
-							<div class="image mr-3 align-self-center">
-								<img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
-							</div>
-							<div class="name align-self-center">
-								Ibrahim Ahmad
-								<span class="position">Softwere Engineer</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg align-self-sm-end">
-					<div class="testimony overlay">
-						<blockquote>
-							<p>
-								&ldquo;I would like to give a huge shoutout to Jeez Beans
-								employees, I literally asked them about every little detail
-								and they just answered with super kindness and explained all I
-								needed to know, I received my order last week and I am
-								obsessed. Thanks for the experience..&rdquo;
-							</p>
-						</blockquote>
-						<div class="author d-flex mt-4">
-							<div class="image mr-3 align-self-center">
-								<img src="https://randomuser.me/api/portraits/women/40.jpg" alt="" />
-							</div>
-							<div class="name align-self-center">
-								Raghed AlQadi
-								<span class="position">Chef</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg align-self-sm-end ftco-animate">
-					<div class="testimony">
-						<blockquote>
-							<p>
-								&ldquo;I don’t usually treat myself to fancy coffee, but I’m
-								homebound with a broken ankle currently, so I treated myself.
-								I mainly purchased a veriaty of coffee. The flavors are
-								incredibly smooth and strong. Would definitely purchase again.
-								&rdquo;
-							</p>
-						</blockquote>
-						<div class="author d-flex mt-4">
-							<div class="image mr-3 align-self-center">
-								<img src="https://randomuser.me/api/portraits/men/18.jpg" alt="" />
-							</div>
-							<div class="name align-self-center">
-								Osama Al Batsh
-								<span class="position">Parkour Coach</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg align-self-sm-end">
-					<div class="testimony overlay">
-						<blockquote>
-							<p>
-								&ldquo;I orderd a coffee machine for my wife's birthday, and
-								we both love it. It makes delicious coffee, thanks to the
-								great variety of pods and the high quality of coffee
-								available. I drink both espressos, with a thick crema and
-								flavor similar to what one gets at the best European cafés,
-								and americanos (for the morning jug of coffee).&rdquo;
-							</p>
-						</blockquote>
-						<div class="author d-flex mt-4">
-							<div class="image mr-3 align-self-center">
-								<img src="https://randomuser.me/api/portraits/men/34.jpg" alt="" />
-							</div>
-							<div class="name align-self-center">
-								Zayed AlNabulsi
-								<span class="position">Orthopedic doctor</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg align-self-sm-end ftco-animate">
-					<div class="testimony">
-						<blockquote>
-							<p>
-								&ldquo;I love homemade espresso coffee drink. The package I
-								orderd has the perfect grinding level. The espresso comes out
-								nice and smooth. &rdquo;
-							</p>
-						</blockquote>
-						<div class="author d-flex mt-4">
-							<div class="image mr-3 align-self-center">
-								<img src="https://randomuser.me/api/portraits/women/12.jpg" alt="" />
-							</div>
-							<div class="name align-self-center">
-								Sahtha Albaw
-								<span class="position">Electrical Engineer</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+
 
 
 
@@ -497,7 +362,7 @@ $product8 = getSingleProduct(8);
 			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
 		</svg>
 	</div>
-
+	<script src="./cart.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>

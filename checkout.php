@@ -1,11 +1,28 @@
-<?php include_once "methods.php"; ?>
+<?php
+require_once "./php/conn.php";
+include_once "./methods.php";
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+<style>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
 
 <head>
   <title>Checkout</title>
   <?php include_once "header.php"; ?>
-
+  <?php
+  if (count($_SESSION) == 0) {
+    header("Location: http://localhost/jazzbeans/register/register.php");
+  }
+  assignCart($_SESSION['id']['id']);
+  ?>
   <section class="home-slider owl-carousel">
     <div class="slider-item" style="background-image: url(images/bg_3.jpg)" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
@@ -26,22 +43,107 @@
   <section class="ftco-section" id="checkout">
     <div class="container">
       <div class="row">
-        <div class="col-xl-8 ftco-animate">
-          <form action="#" class="billing-form ftco-bg-dark p-3 p-md-5">
+        <div class="col-xl-12 ftco-animate">
+
+          <form action="#" method="POST" class="billing-form  p-3 p-md-5">
+            <!-- table --------------------------- -->
+
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-white"> Image </th>
+                    <th class="text-white"> Name </th>
+                    <th class="text-white"> Price </th>
+                    <th class="text-white"> Amount </th>
+                    <th class="text-white"> Delete </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- fun table "cart" -->
+                  <?php
+
+
+
+                  $cartItems = getCartProducts($_SESSION['id']['id']);
+                  if (isset($_SESSION['id']['id']) && count($cartItems) > 0) {
+                    $count = 0;
+
+                    foreach ($cartItems as $item) {
+
+
+                  ?>
+
+                      <tr>
+                        <td class="py-1">
+                          <img style="height: 60px ; !important" class=" rounded-circle " src="<?php $imgg = ltrim($item["img"], ".");
+                                                                                                echo "." . $imgg;  ?>" alt="image">
+
+
+                        </td>
+                        <td class="text-white"> <?php echo $item["name"];  ?> </td>
+                        <td class="text-white">
+                          <!-- ------------------------------------ -->
+                          <?php
+                          if ($item["discount"] && $item["discount"] < $item["price"]) { ?>
+                            <h6> <span> <?php echo ($item["discount"]) . " JOD"; ?> </span></h6>
+                            <span>
+                              <p class="Secondary text"> <s><?php echo ($item["price"]) . " JOD"; ?></s></p>
+                            </span>
+                          <?php      } else { ?>
+
+
+                            <p class="price">
+                              <span><?php echo  $item["price"] . " JOD"; ?></span>
+                            </p>
+
+
+                          <?php  }
+
+                          ?>
+
+                          <!-- ------------------------------------ -->
+                        </td>
+                        <td class="text-white"> <input name="quantity<?php echo $count; ?>" value="1" type="number" class="form-control text-white " placeholder=""> </td>
+                        <td>
+                          <a href="del_cart_item.php?del_cart_id=<?php echo $item["id"];  ?>"> <button type="button" class="btn btn-outline-danger btn-icon-text "> Delete
+                            </button></a>
+                        </td>
+                      </tr>
+
+
+
+
+                    <?php $count++;
+                    }
+                  } else { ?>
+                    <tr>
+                      <td class="text-white"> THERE </td>
+                      <td class="text-white"> IS </td>
+                      <td class="text-white"> NO</td>
+                      <td class="py-1">
+                        ITEMS
+                      </td>
+                      <td>
+                        <a href="http://localhost/jazzbeans/register/register.php"> <button type="button" class="btn btn-outline-danger btn-icon-text "> Delete
+                          </button></a>
+                      </td>
+                    </tr>
+
+                  <?php  }
+
+
+                  ?>
+                  <!-- fun table "cart" -->
+
+
+                </tbody>
+              </table>
+            </div>
+            <!-- table--------------- -->
             <h3 class="mb-4 billing-heading">Billing Details</h3>
             <div class="row align-items-end">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="firstname">Firt Name</label>
-                  <input type="text" class="form-control" placeholder="" required />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="lastname">Last Name</label>
-                  <input type="text" class="form-control" placeholder="" required />
-                </div>
-              </div>
+
               <div class="w-100"></div>
               <div class="col-md-12">
                 <div class="form-group">
@@ -50,19 +152,19 @@
                     <div class="icon">
                       <span class="ion-ios-arrow-down"></span>
                     </div>
-                    <select name="" id="" class="form-control" required>
-                      <option value="" class="bg-dark">Amman</option>
-                      <option value="" class="bg-dark">Irbid</option>
-                      <option value="" class="bg-dark">Zarqa</option>
-                      <option value="" class="bg-dark">Mafraq</option>
-                      <option value="" class="bg-dark">Ajloun</option>
-                      <option value="" class="bg-dark">Jerash</option>
-                      <option value="" class="bg-dark">Madaba</option>
-                      <option value="" class="bg-dark">Balqa</option>
-                      <option value="" class="bg-dark">Karak</option>
-                      <option value="" class="bg-dark">Tafileh</option>
-                      <option value="" class="bg-dark">Maan</option>
-                      <option value="" class="bg-dark">Aqaba</option>
+                    <select name="city" id="" class="form-control" required>
+                      <option value="Amman" class="bg-dark">Amman</option>
+                      <option value="Irbid" class="bg-dark">Irbid</option>
+                      <option value="Zarqa" class="bg-dark">Zarqa</option>
+                      <option value="Mafraq" class="bg-dark">Mafraq</option>
+                      <option value="Ajloun" class="bg-dark">Ajloun</option>
+                      <option value="Jerash" class="bg-dark">Jerash</option>
+                      <option value="Madaba" class="bg-dark">Madaba</option>
+                      <option value="Balqa" class="bg-dark">Balqa</option>
+                      <option value="Karak" class="bg-dark">Karak</option>
+                      <option value="Tafileh" class="bg-dark">Tafileh</option>
+                      <option value="Maan" class="bg-dark">Maan</option>
+                      <option value="Aqaba" class="bg-dark">Aqaba</option>
                     </select>
                   </div>
                 </div>
@@ -71,19 +173,19 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="streetaddress">Street Address</label>
-                  <input type="text" class="form-control" placeholder="House number and street name" required />
+                  <input name="streetaddress" type="text" class="form-control" placeholder="House number and street name" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)" />
+                  <input name="" type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)" />
                 </div>
               </div>
               <div class="w-100"></div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="towncity">Area</label>
-                  <input type="text" class="form-control" placeholder="" required />
+                  <input type="text" class="form-control" placeholder="" />
                 </div>
               </div>
               <div class="col-md-6">
@@ -96,131 +198,83 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="phone">Phone</label>
-                  <input type="text" class="form-control" placeholder="" required />
+                  <input name="phone" type="text" class="form-control" placeholder="" />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="emailaddress">Email Address</label>
-                  <input type="text" class="form-control" placeholder="" required />
+                  <input type="text" class="form-control" placeholder="" />
                 </div>
               </div>
               <div class="w-100"></div>
-              <div class="col-md-12">
-                <div class="form-group mt-4">
-                  <div class="radio">
-                    <label class="mr-3"><input type="radio" name="optradio" /> Create an
-                      Account?
-                    </label>
-                    <label><input type="radio" name="optradio" /> Ship to
-                      different address</label>
-                  </div>
+              <br>
+              <div class="col-12">
+
+                <div class="form-group ">
+
+                  <button name="btn" type="submit" class="btn btn-primary mr-2 col-12 ">Place Order</button>
                 </div>
+
               </div>
+
             </div>
           </form>
           <!-- END -->
 
-          <div class="row mt-5 pt-3 d-flex">
-            <div class="col-md-6 d-flex">
-              <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
-                <h3 class="billing-heading mb-4">Cart Total</h3>
-                <p class="d-flex">
-                  <span>Subtotal</span>
-                  <!-- <span>total</span> -->
-                </p>
-                <p class="d-flex">
-                  <span>Delivery</span>
-                  <span>JOD 3.00</span>
-                </p>
-                <p class="d-flex">
-                  <span>Discount</span>
-                  <!-- <span>discount amount</span> -->
-                </p>
-                <hr />
-                <p class="d-flex total-price">
-                  <span>Total</span>
-                  <!-- <span>total invoice</span> -->
-                </p>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="cart-detail ftco-bg-dark p-3 p-md-4">
-                <h3 class="billing-heading mb-4">Payment Method</h3>
-                <div class="form-group">
-                  <div class="col-md-12">
-                    <div class="radio">
-                      <label><input type="radio" name="optradio" class="mr-2" />
-                        Cash on Delivery</label>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="form-group">
-                  <div class="col-md-12">
-                    <div class="checkbox">
-                      <label><input type="checkbox" value="" class="mr-2" /> I
-                        have read and accept the terms and conditions</label>
-                    </div>
-                  </div>
-                </div>
-                <p>
-                  <a href="#" class="btn btn-primary py-3 px-4">Place an order</a>
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
         <!-- .col-md-8 -->
 
-        <div class="col-xl-4 sidebar ftco-animate">
-          <div class="sidebar-box">
-            <form action="#" class="search-form">
-              <div class="form-group">
-                <div class="icon">
-                  <span class="icon-search"></span>
-                </div>
-                <input type="text" class="form-control" placeholder="Search..." />
-              </div>
-            </form>
-          </div>
-          <div class="sidebar-box ftco-animate">
-            <div class="categories">
-              <h3>Categories</h3>
-              <li>
-                <a href="#">Coffee<span>(12)</span></a>
-              </li>
-              <li>
-                <a href="#">Coffee Machines<span>(7)</span></a>
-              </li>
-              <li>
-                <a href="#">Coffee Capsuls<span>(17)</span></a>
-              </li>
-              <li>
-                <a href="#">Accessories<span>(12)</span></a>
-              </li>
-            </div>
-          </div>
 
-
-          <div class="sidebar-box ftco-animate">
-            <h3>Tag Cloud</h3>
-            <div class="tagcloud">
-              <a href="#" class="tag-cloud-link">nespresso</a>
-              <a href="#" class="tag-cloud-link">cup</a>
-              <a href="#" class="tag-cloud-link">black</a>
-              <a href="#" class="tag-cloud-link">tasty</a>
-              <a href="#" class="tag-cloud-link">strong</a>
-              <a href="#" class="tag-cloud-link">meduim</a>
-              <a href="#" class="tag-cloud-link">smooth</a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
   <!-- .section -->
+  <!-- handle order php -->
+  <?php
+  // orders in cart
+  $cartItems;
 
+  $userId = (int)$_SESSION['id']['id'];
+
+  if (isset($_POST["btn"])) {
+
+
+
+    $invoiceNum = (int)strtok((string)date(microtime(20)), ".");
+
+    $totalPrice = 3;
+    for ($i = 0; $i < count($cartItems); $i++) {
+      if ($cartItems[$i]['discount'] && $cartItems[$i]['discount'] < $cartItems[$i]['price']) {
+        # code...
+        $totalPrice = $totalPrice + ((float)$cartItems[$i]['discount'] * (int)$_POST["quantity$i"]);
+      } else {
+        $totalPrice = $totalPrice + ((float)$cartItems[$i]['price'] * (int)$_POST["quantity$i"]);
+      }
+    }
+
+
+    addInvoice($invoiceNum, $userId, $totalPrice);
+
+
+
+    $customerInvoice = getInvoiceByNum($invoiceNum);
+    for ($i = 0; $i < count($cartItems); $i++) {
+
+      if (addOrder((int)$cartItems[$i]['product_id'], (int)$customerInvoice['id'], (int)$_POST["quantity$i"]) && emptyCart((int)$_SESSION['id']['id'])) {
+        // echo "&&&&&&&&&&&&&&&&&&&&&&&&MABROOOOK AGAAAIIINNNNNNNN ";
+        // header("location: http://localhost/jazzbeans/purchased.php?i_id=" . $customerInvoice['id']);
+        $_SESSION["i_Id"] = trim($customerInvoice['id']);
+        echo "<script> location.href = 'http://localhost/jazzbeans/purchased.php'; </script>";
+      }
+    }
+  }
+
+
+  ?>
+
+  <!-- handle order php -->
 
 
   <!-- loader --><?php include_once "footer.php"; ?>

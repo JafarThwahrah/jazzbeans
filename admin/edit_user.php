@@ -100,7 +100,7 @@ $userInfo = getUserInfo($id);
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Change Image</label>
                                 <div class="col-sm-9">
-                                    <input name="editu_img" type="file" value="<?php echo $userInfo['img'] ?> " class="file-upload-default">
+                                    <input name="editu_img" type="file" value="<?php echo $userInfo['img']; ?> " class="file-upload-default">
                                     <div class="input-group col-xs-12">
                                         <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                                         <span class="input-group-append">
@@ -118,12 +118,12 @@ $userInfo = getUserInfo($id);
                                     <select name="editu_role" type="text" class="form-control" id="exampleInputName1" placeholder="Users">
                                         <?php
                                         if ($userInfo["role"] == "admin") { ?>
-                                            <option selected value=" <?php echo $userInfo["role"]; ?>">admin</option>
+                                            <option selected value="<?php echo $userInfo["role"]; ?>">admin</option>
                                             <option value="user">user</option>
 
                                         <?php  } else { ?>
                                             <option value="admin">admin</option>
-                                            <option selected value=" <?php echo $userInfo["role"]; ?>">user</option>
+                                            <option selected value="<?php echo $userInfo["role"]; ?>">user</option>
 
                                         <?php    } ?>
                                     </select>
@@ -140,8 +140,8 @@ $userInfo = getUserInfo($id);
                         </div>
                     </div>
                     <button name="editu_submit" type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <button class="btn btn-dark">Cancel</button>
                 </form>
+                <a href="http://localhost/jazzbeans/admin/dashboard.php"> <button class="btn btn-danger mt-2  ">Cancel</button></a>
             </div>
         </div>
     </div>
@@ -170,6 +170,7 @@ $userInfo = getUserInfo($id);
 
 
         if (editUserAdmin($id, $name, $address, $phone, $email, $pass, $birth, $folder, $role)) {
+            // echo "hi";
             echo "<script> window.location = 'http://localhost/jazzbeans/admin/dashboard.php' </script>";
         } else {
             header("#?err=1");
