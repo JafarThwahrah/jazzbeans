@@ -22,7 +22,7 @@ $product = getSingleProduct($id);
 					<div class="col-md-7 col-sm-12 text-center ftco-animate">
 						<h1 class="mb-3 mt-5 bread">Product Detail</h1>
 						<p class="breadcrumbs">
-							<span class="mr-2"><a href="shop.html">Shop</a></span>
+							<span class="mr-2"><a href="shop.php">Shop</a></span>
 							<span>Product Detail</span>
 						</p>
 					</div>
@@ -35,32 +35,44 @@ $product = getSingleProduct($id);
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 mb-5 ftco-animate">
-					<a href="product img url" class="image-popup"><img src="<?php echo ($product["img"]); ?>" class="img-fluid" alt="Colorlib Template" /></a>
+					<a href="product img url" class="image-popup"><img src="<?php $imgg = ltrim($product["img"], ".");
+																			echo "." . $imgg;  ?>" class="img-fluid" alt="Colorlib Template" /></a>
 				</div>
 				<div class="col-lg-6 product-details pl-md-5 ftco-animate">
 					<h3><?php echo ($product["name"]); ?></h3>
-					<p class="price"><span><?php echo ($product["price"]); ?> JOD</span></p>
+					<!-- ------------------------------------ -->
+					<?php
+					if ($product["discount"] && $product["discount"] < $product["price"]) { ?>
+						<h6> <span> <?php echo ($product["discount"]) . " JOD"; ?> </span></h6>
+						<span>
+							<p class="Secondary text"> <s><?php echo ($product["price"]) . " JOD"; ?></s></p>
+						</span>
+					<?php 		 } else { ?>
+
+
+						<p class="price">
+							<span><?php echo  $product["price"] . " JOD"; ?></span>
+						</p>
+
+
+					<?php	}
+
+					?>
+
+					<!-- ------------------------------------ -->
 					<p><?php echo ($product["short_desc"]); ?></p>
 					<br>
 					<p><?php echo ($product["description"]); ?></p>
 					<div class="row mt-4">
 						<div class="w-100"></div>
-						<!-- <div class="input-group col-md-6 d-flex mb-3">
-							<span class="input-group-btn mr-2">
-								<button type="button" class="quantity-left-minus btn" data-type="minus" data-field="">
-									<i class="icon-minus"></i>
-								</button>
-							</span>
-							<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100" />
-							<span class="input-group-btn ml-2">
-								<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-									<i class="icon-plus"></i>
-								</button>
-							</span>
-						</div> -->
+
 					</div>
 					<p>
-						<a href="cart.html" class="btn btn-primary py-3 px-5">Add to Cart</a>
+						<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $product['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
 					</p>
 				</div>
 			</div>
@@ -87,15 +99,39 @@ $product = getSingleProduct($id);
 
 					<div class="col-md-3">
 						<div class="menu-entry">
-							<a href="http://localhost/jazzbeans/product-single.php?p_id=<?php echo ($arr[$i]["id"]); ?>" class="img" style="background-image: url(<?php echo ($arr[$i]["img"]); ?>)"></a>
+							<a href="http://localhost/jazzbeans/product-single.php?p_id=<?php echo ($arr[$i]["id"]); ?>" class="img" style="background-image: url(<?php $imgg = ltrim($arr[$i]["img"], ".");
+																																									echo "." . $imgg;  ?>)"></a>
 							<div class="text text-center pt-4">
 								<h3><a href="http://localhost/jazzbeans/product-single.php?p_id=<?php echo ($arr[$i]["id"]); ?>"><?php echo ($arr[$i]["name"]); ?></a></h3>
 								<p>
 									<?php echo ($arr[$i]["short_desc"]); ?>
 								</p>
-								<p class="price"><span><?php echo ($arr[$i]["price"]); ?></span></p>
+								<!-- .................. -->
+								<?php
+								if ($arr[$i]["discount"] && $arr[$i]["discount"] < $arr[$i]["price"]) { ?>
+									<h6> <span> <?php echo ($arr[$i]["discount"]) . " JOD"; ?> </span></h6>
+									<span>
+										<p class="Secondary text"> <s><?php echo ($arr[$i]["price"]) . " JOD"; ?></s></p>
+									</span>
+								<?php 		 } else { ?>
+
+
+									<p class="price">
+										<span><?php echo  $product["price"] . " JOD"; ?></span>
+									</p>
+
+
+								<?php	}
+
+								?>
+
+								<!-- ------------------------------------ -->
 								<p>
-									<a href="?p_id=" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+									<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $arr[$i]['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
 								</p>
 							</div>
 						</div>
@@ -115,7 +151,7 @@ $product = getSingleProduct($id);
 			<circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" />
 		</svg>
 	</div>
-
+	<script src="./cart.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>

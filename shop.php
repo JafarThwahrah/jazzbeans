@@ -15,7 +15,7 @@ include_once "methods.php";
 			<div class="container">
 				<div class="row slider-text justify-content-center align-items-center">
 					<div class="col-md-7 col-sm-12 text-center ftco-animate">
-						<h1 class="mb-3 mt-5 bread">Order Online</h1>
+						<h1 class="mb-3 mt-5 bread"><a href="#checkout">Order Online</a></h1>
 						<p class="breadcrumbs">
 							<span class="mr-2"><a href="index.html">Home</a></span>
 							<span>Shop</span>
@@ -57,7 +57,7 @@ include_once "methods.php";
 
 											<!--Bill-0 Coffee-->
 											<div class="tab-pane fade show active" id="v-pills-a" role="tabpanel" aria-labelledby="v-pills-a-tab">
-												<div class="row">
+												<div class="row ">
 													<?php
 
 													$allProduct = getAllProduct();
@@ -74,21 +74,43 @@ include_once "methods.php";
 														// var_dump($results);
 														foreach ($results as $result) {
 													?>
-															<div class="col-md-3">
+															<div class="col-md-4">
 																<div class="menu-entry">
-																	<a href="product-single.php?p_id=<?php echo $result["id"]; ?>" class="img" style="
-                                                              background-image: url(<?php echo $result["img"]; ?>);
-                                                                "></a>
+																	<a href="product-single.php?p_id=<?php echo $result["id"]; ?>" class="img" style="background-image: url(<?php $imgg = ltrim($result["img"], ".");
+																																											echo "." . $imgg;  ?>); "></a>
 																	<div class="text text-center pt-4">
 																		<h3>
 																			<a href="product-single.php?p_id=<?php echo $result["id"]; ?>"><?php echo $result["name"]; ?></a>
 																		</h3>
 																		<p><?php echo $result["short_desc"]; ?></p>
-																		<p class="price">
-																			<span><?php echo $result["price"] . "$"; ?></span>
-																		</p>
+																		<!-- ------------------------------------ -->
+																		<?php
+																		if ($result["discount"] && $result["discount"] < $result["price"]) { ?>
+																			<h6> <span> <?php echo ($result["discount"]) . " JOD"; ?> </span></h6>
+																			<span>
+																				<p class="Secondary text"> <s><?php echo ($result["price"]) . " JOD"; ?></s></p>
+																			</span>
+																		<?php 		 } else { ?>
+
+
+																			<p class="price">
+																				<span><?php echo  $result["price"] . " JOD"; ?></span>
+																			</p>
+
+
+																		<?php	}
+
+																		?>
+
+																		<!-- ------------------------------------ -->
+
+
 																		<p>
-																			<a href="cart.php?ip_id=<?php echo $result["id"]; ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+																			<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $result['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
 																		</p>
 																	</div>
 																</div>
@@ -99,24 +121,98 @@ include_once "methods.php";
 
 
 														}
+													} elseif (isset($_POST['start_price']) && isset($_POST['end_price'])) {
+														$startprice = $_POST['start_price'];
+														$endprice = $_POST['end_price'];
+														$sql = "SELECT * FROM products WHERE price BETWEEN $startprice AND $endprice ";
+														$query = connect()->prepare($sql);
+														$query->execute();
+														$filters = $query->fetchAll();
+														foreach ($filters as $filter) {
+														?>
+															<div class="col-md-3">
+																<div class="menu-entry">
+																	<a href="product-single.php?p_id=<?php echo $filter["id"]; ?>" class="img" style="
+																		background-image: url(<?php $imgg = ltrim($filter["img"], ".");
+																								echo "." . $imgg;  ?>);
+																			"></a>
+																	<div class="text text-center pt-4">
+																		<h3>
+																			<a href="product-single.php?p_id=<?php echo $filter["id"]; ?>"><?php echo $filter["name"]; ?></a>
+																		</h3>
+																		<p><?php echo $filter["short_desc"]; ?></p>
+																		<!-- ------------------------------------ -->
+																		<?php
+																		if ($filter["discount"] && $filter["discount"] < $filter["price"]) { ?>
+																			<h6> <span> <?php echo ($filter["discount"]) . " JOD"; ?> </span></h6>
+																			<span>
+																				<p class="Secondary text"> <s><?php echo ($filter["price"]) . " JOD"; ?></s></p>
+																			</span>
+																		<?php 		 } else { ?>
+
+
+																			<p class="price">
+																				<span><?php echo  $filter["price"] . " JOD"; ?></span>
+																			</p>
+
+
+																		<?php	}
+
+																		?>
+
+																		<!-- ------------------------------------ -->
+																		<p>
+																			<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $filter['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
+																		</p>
+																	</div>
+																</div>
+															</div>
+														<?php
+														}
 													} else {
 														foreach ($allProduct as $product) {
 														?>
 															<div class="col-md-3">
 																<div class="menu-entry">
 																	<a href="product-single.php?p_id=<?php echo $product["id"]; ?>" class="img" style="
-                                                              background-image: url(<?php echo $product["img"]; ?>);
-                                                                "></a>
+																		background-image: url(<?php $imgg = ltrim($product["img"], ".");
+																								echo "." . $imgg;  ?>);
+																			"></a>
 																	<div class="text text-center pt-4">
 																		<h3>
 																			<a href="product-single.php?p_id=<?php echo $product["id"]; ?>"><?php echo $product["name"]; ?></a>
 																		</h3>
 																		<p><?php echo $product["short_desc"]; ?></p>
-																		<p class="price">
-																			<span><?php echo $product["price"] . "$"; ?></span>
-																		</p>
+																		<!-- ------------------------------------ -->
+																		<?php
+																		if ($product["discount"] && $product["discount"] < $product["price"]) { ?>
+																			<h6> <span> <?php echo ($product["discount"]) . " JOD"; ?> </span></h6>
+																			<span>
+																				<p class="Secondary text"> <s><?php echo ($product["price"]) . " JOD"; ?></s></p>
+																			</span>
+																		<?php 		 } else { ?>
+
+
+																			<p class="price">
+																				<span><?php echo  $product["price"] . " JOD"; ?></span>
+																			</p>
+
+
+																		<?php	}
+
+																		?>
+
+																		<!-- ------------------------------------ -->
 																		<p>
-																			<a href="cart.php?p_id=<?php echo $product["id"]; ?>" class="btn btn-primary btn-outline-primary">Add to Cart</a>
+																			<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $product['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
 																		</p>
 																	</div>
 																</div>
@@ -140,19 +236,39 @@ include_once "methods.php";
 														?>
 															<div class="col-md-4 text-center">
 																<div class="menu-wrap">
-																	<a href="product-single.php?p_id=<?php echo $product["id"]; ?>" class="menu-img img mb-4" style="
-                                                              background-image: url(<?php echo $product["img"]; ?>);
-                                                                 "></a>
+																	<a href="product-single.php?p_id=<?php echo $product["id"]; ?>" class="menu-img img mb-4" style="background-image: url(<?php $imgg = ltrim($product["img"], ".");
+																																															echo "." . $imgg;  ?>);"></a>
 																	<div class="text">
 																		<h3>
 																			<a href="product-single.php?p_id=<?php echo $product["id"]; ?>"><?php echo $product["name"]; ?></a>
 																		</h3>
 																		<p><?php echo $product["short_desc"]; ?></p>
-																		<p class="price">
-																			<span><?php echo $product["price"] . "$"; ?></span>
-																		</p>
+																		<!-- ------------------------------------ -->
+																		<?php
+																		if ($product["discount"] && $product["discount"] < $product["price"]) { ?>
+																			<h6> <span> <?php echo ($product["discount"]) . " JOD"; ?> </span></h6>
+																			<span>
+																				<p class="Secondary text"> <s><?php echo ($product["price"]) . " JOD"; ?></s></p>
+																			</span>
+																		<?php 		 } else { ?>
+
+
+																			<p class="price">
+																				<span><?php echo  $product["price"] . " JOD"; ?></span>
+																			</p>
+
+
+																		<?php	}
+
+																		?>
+
+																		<!-- ------------------------------------ -->
 																		<p>
-																			<a href="cart.php?p_id=<?php echo $product["id"]; ?>" class="btn btn-primary btn-outline-primary">Add to cart</a>
+																			<a id="Anchor" onclick=" addToCart(<?php if (count($_SESSION) > 0) { ?>
+																												<?php echo $_SESSION['id']['id']; ?>
+																												<?php		} else { ?>
+																													<?php echo 1; ?>
+																													<?php	}; ?> , <?php echo $product['id']; ?>)" class="btn btn-primary btn-outline-primary">Add to cart</a>
 																		</p>
 																	</div>
 																</div>
@@ -189,23 +305,31 @@ include_once "methods.php";
 							</div>
 						</form>
 					</div>
-					<div class="sidebar-box ftco-animate">
-						<div class="categories">
-
-
-						</div>
-					</div>
 
 					<div class="sidebar-box ftco-animate">
-						<h3>Tag Cloud</h3>
-						<div class="tagcloud">
-							<a href="#" class="tag-cloud-link">nespresso</a>
-							<a href="#" class="tag-cloud-link">cup</a>
-							<a href="#" class="tag-cloud-link">black</a>
-							<a href="#" class="tag-cloud-link">tasty</a>
-							<a href="#" class="tag-cloud-link">strong</a>
-							<a href="#" class="tag-cloud-link">meduim</a>
-							<a href="#" class="tag-cloud-link">smooth</a>
+						<div class="filter">
+							<form action="" method="post">
+								<div class="row">
+									<div class="col-md-4">
+										<input type="text" name="start_price" value="<?php if (isset($_POST['start_price'])) {
+																							echo $_POST['start_price'];
+																						} else {
+																							echo "0";
+																						} ?>" class="form-control">
+									</div>
+									<div class="col-md-4">
+										<input type="text" name="end_price" value="<?php if (isset($_POST['end_price'])) {
+																						echo $_POST['end_price'];
+																					} else {
+																						echo "500";
+																					} ?>" class="form-control">
+									</div>
+									<div class="col-md-4">
+										<label for=""></label> <br />
+										<button type="submit" class="btn btn-primary px-4">Filter</button>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -222,6 +346,7 @@ include_once "methods.php";
 	</div>
 
 	<!-- <script src="jazzbeans/register/javascript/logout.js"></script> -->
+	<script src="./cart.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>

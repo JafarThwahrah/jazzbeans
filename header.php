@@ -28,20 +28,20 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">Jazz<small>Beans</small></a>
+      <a class="navbar-brand" href="http://localhost/jazzbeans/index.php">Jazz<small>Beans</small></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span> Menu
       </button>
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a href="index.php" class="nav-link">Home</a>
+            <a href="http://localhost/jazzbeans/index.php" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="index.php/#about" class="nav-link">About</a>
+            <a href="http://localhost/jazzbeans/about.php" class="nav-link">About</a>
           </li>
           <li class="nav-item">
-            <a href="./shop.php" class="nav-link">Shop</a>
+            <a href="http://localhost/jazzbeans/shop.php" class="nav-link">Shop</a>
           </li>
           <li class="nav-item">
             <a href="contact.php" class="nav-link">Contact</a>
@@ -50,23 +50,22 @@
 
                 if (isset($_SESSION["id"])) { ?>
             <li class="nav-item">
-              <a href="./profile.php?id=<?php echo $_SESSION["id"][0]; ?>" class="nav-link">Profile</a>
+              <a href="http://localhost/jazzbeans/profile.php?id=<?php $_SESSION["id"]['id']; ?>" class="nav-link">Profile</a>
+
             </li>
           <?php } else { ?>
 
             <li class="nav-item">
-              <a href="register/register.html" class="nav-link">Login</a>
+              <a href="register/register.php" class="nav-link">Login</a>
             </li>
 
           <?php }
 
 
           ?>
-
+        
           <li class="nav-item cart">
-            <a href="cart.html" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center">
-                <!-- <small>number of items in cart</small> -->
-              </span></a>
+            <a href="checkout.php" class="nav-link"><span class="icon icon-shopping_cart"></a>
           </li>
         </ul>
       </div>

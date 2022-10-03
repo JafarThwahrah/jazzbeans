@@ -51,8 +51,8 @@ include "../methods.php";
                         <textarea name="addc_desc" class="form-control" id="exampleTextarea1" rows="4"></textarea>
                     </div>
                     <button name="addc_submit" type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <button class="btn btn-dark">Cancel</button>
                 </form>
+                <a href="http://localhost/jazzbeans/admin/dashboard.php"> <button class="btn btn-danger mt-3">Cancel</button></a>
             </div>
         </div>
     </div>

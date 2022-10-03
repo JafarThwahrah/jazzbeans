@@ -113,11 +113,9 @@ function getInvoicesDetails($id)
 function editUser($id, $name, $address, $phone, $email, $pwd, $dob, $img)
 {
     $stmt = connect()->prepare(
-        "UPDATE users_info SET (name, address, phone, email, pwd, dob, img) VALUES (?,?,?,?,?,?,?) WHERE id = ?"
+        "UPDATE users_info SET name=?, address=?, phone=?, email=?, pwd=?, dob=?, img=?  WHERE id =? ;"
     );
-    $stmt->execute(array($name, $address, $phone, $email, $pwd, $dob, $img, $id));
-    $users = $stmt->fetchAll();
-    return $users;
+    return  $stmt->execute(array($name, $address, $phone, $email, $pwd, $dob, $img, $id));
 }
 
 
@@ -138,7 +136,7 @@ function getOneUser($id)
         "SELECT * FROM users_info WHERE id = ?;"
     );
     $stmt->execute(array($id));
-    $users = $stmt->fetchAll();
+    $users = $stmt->fetch();
     return $users;
 }
 // fun to edit user / admin end
@@ -236,3 +234,89 @@ function sendToProductPage()
 // foreach (getProductsFromCategory(1) as $product) {
 //     echo $product["name"] . "<br>";
 // }
+function addToCartPhp($userId, $productId)
+{
+    $stmt = connect()->prepare(
+        "INSERT INTO cart (user_id, product_id) VALUES (?,?) ;"
+    );
+    if ($stmt->execute(array($userId, $productId))) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// get cart products 
+function getCartForUser($userId)
+{
+    $stmt = connect()->prepare('SELECT * FROM cart WHERE user_id = ?;');
+    $stmt->execute(array($userId));
+
+
+    return $stmt->fetchAll();
+}
+function getCartProducts($id)
+{
+
+    $stmt1 = connect()->prepare('SELECT *
+        FROM
+            products a
+                INNER JOIN
+            cart b
+                ON a.id = b.product_id
+                 WHERE user_id = ?;');
+
+    $stmt1->execute(array($id));
+
+    $productsForInvoice = $stmt1->fetchAll();
+
+    return $productsForInvoice;
+}
+function delCartItem($id)
+{
+    $stmt = connect()->prepare(
+        "DELETE FROM cart WHERE id = ?;"
+    );
+    return   $stmt->execute(array($id));
+}
+function addInvoice($iNum, $uId, $tP)
+{
+    $stmt = connect()->prepare(
+        "INSERT INTO invoice (invoice_num, user_id, total_price) VALUES (?,?,?) ;"
+    );
+    return $stmt->execute(array($iNum, $uId, $tP));
+}
+function getInvoiceByNum($num)
+{
+    $stmt = connect()->prepare('SELECT * FROM invoice WHERE invoice_num = ?;');
+    $stmt->execute(array($num));
+
+
+    return $stmt->fetch();
+}
+
+function addOrder($productId, $iId, $quantity)
+{
+    $stmt = connect()->prepare(
+        "INSERT INTO p_order (product_id, invoice_id, quantity) VALUES (?,?,?) ;"
+    );
+    return $stmt->execute(array($productId, $iId, $quantity));
+}
+function emptyCart($u_Id)
+{
+    $stmt = connect()->prepare(
+        "DELETE FROM cart WHERE user_id = ?;"
+    );
+    return $stmt->execute(array($u_Id));
+}
+
+
+// UPDATE cart SET user_id = 4 WHERE user_id IS NULL;
+
+function assignCart($u_Id)
+{
+    $stmt = connect()->prepare(
+        "UPDATE cart SET user_id = ? WHERE user_id IS NULL;"
+    );
+    return $stmt->execute(array($u_Id));
+}

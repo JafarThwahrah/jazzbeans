@@ -1,4 +1,3 @@
-<?php include_once "methods.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,87 +32,138 @@
 					<h2 class="mb-4">Our Story</h2>
 				</div>
 				<div>
-					<p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+					<p>In COVID-19 dark days, the importance of online stores has
+						increased and the need to serve customers to ensure their safety
+						and our workers' safety has emerged. Our team consists of coffee
+						experts, baristas, and people with a passion for coffee. We import
+						the finest coffee from all over the world, contract with the best
+						coffee machines and equipment brands, and choose the most useful
+						and practical accessories for you.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<section class="ftco-section img" id="ftco-testimony" style="background-image: url(images/bg_1.jpg);" data-stellar-background-ratio="0.5">
+	<section class="ftco-section img" id="ftco-testimony" style="background-image: url(images/bg_1.jpg)" data-stellar-background-ratio="0.5">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row justify-content-center mb-5">
 				<div class="col-md-7 heading-section text-center ftco-animate">
 					<span class="subheading">Testimony</span>
 					<h2 class="mb-4">Customers Says</h2>
-					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+					<p>
+						The honest endorsement of our products and services from our loyal
+						customers.
+					</p>
 				</div>
 			</div>
 		</div>
 		<div class="container-wrap">
 			<div class="row d-flex no-gutters">
-				<div class="col-lg align-self-sm-end">
+				<div class="col-lg align-self-sm-end ftco-animate">
 					<div class="testimony">
 						<blockquote>
-							<p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small.&rdquo;</p>
+							<p>
+								&ldquo;With this machine I can easily create an authentic
+								top-quality coffee at home, thanks to Jazz Beans store's
+								convenience and coffee expertise.&rdquo;
+							</p>
 						</blockquote>
 						<div class="author d-flex mt-4">
 							<div class="image mr-3 align-self-center">
-								<img src="images/person_1.jpg" alt="">
+								<img src="https://randomuser.me/api/portraits/men/32.jpg" alt="" />
 							</div>
-							<div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+							<div class="name align-self-center">
+								Ibrahim Ahmad
+								<span class="position">Softwere Engineer</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg align-self-sm-end">
 					<div class="testimony overlay">
 						<blockquote>
-							<p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.&rdquo;</p>
+							<p>
+								&ldquo;I would like to give a huge shoutout to Jeez Beans
+								employees, I literally asked them about every little detail
+								and they just answered with super kindness and explained all I
+								needed to know, I received my order last week and I am
+								obsessed. Thanks for the experience..&rdquo;
+							</p>
 						</blockquote>
 						<div class="author d-flex mt-4">
 							<div class="image mr-3 align-self-center">
-								<img src="images/person_2.jpg" alt="">
+								<img src="https://randomuser.me/api/portraits/women/40.jpg" alt="" />
 							</div>
-							<div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+							<div class="name align-self-center">
+								Raghed AlQadi
+								<span class="position">Chef</span>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg align-self-sm-end">
+				<div class="col-lg align-self-sm-end ftco-animate">
 					<div class="testimony">
 						<blockquote>
-							<p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name. &rdquo;</p>
+							<p>
+								&ldquo;I don’t usually treat myself to fancy coffee, but I’m
+								homebound with a broken ankle currently, so I treated myself.
+								I mainly purchased a veriaty of coffee. The flavors are
+								incredibly smooth and strong. Would definitely purchase again.
+								&rdquo;
+							</p>
 						</blockquote>
 						<div class="author d-flex mt-4">
 							<div class="image mr-3 align-self-center">
-								<img src="images/person_3.jpg" alt="">
+								<img src="https://randomuser.me/api/portraits/men/18.jpg" alt="" />
 							</div>
-							<div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+							<div class="name align-self-center">
+								Osama Al Batsh
+								<span class="position">Parkour Coach</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg align-self-sm-end">
 					<div class="testimony overlay">
 						<blockquote>
-							<p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however.&rdquo;</p>
+							<p>
+								&ldquo;I orderd a coffee machine for my wife's birthday, and
+								we both love it. It makes delicious coffee, thanks to the
+								great variety of pods and the high quality of coffee
+								available. I drink both espressos, with a thick crema and
+								flavor similar to what one gets at the best European cafés,
+								and americanos (for the morning jug of coffee).&rdquo;
+							</p>
 						</blockquote>
 						<div class="author d-flex mt-4">
 							<div class="image mr-3 align-self-center">
-								<img src="images/person_2.jpg" alt="">
+								<img src="https://randomuser.me/api/portraits/men/34.jpg" alt="" />
 							</div>
-							<div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+							<div class="name align-self-center">
+								Zayed AlNabulsi
+								<span class="position">Orthopedic doctor</span>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg align-self-sm-end">
+				<div class="col-lg align-self-sm-end ftco-animate">
 					<div class="testimony">
 						<blockquote>
-							<p>&ldquo;Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name. &rdquo;</p>
+							<p>
+								&ldquo;I love homemade espresso coffee drink. The package I
+								orderd has the perfect grinding level. The espresso comes out
+								nice and smooth. &rdquo;
+							</p>
 						</blockquote>
 						<div class="author d-flex mt-4">
 							<div class="image mr-3 align-self-center">
-								<img src="images/person_3.jpg" alt="">
+								<img src="https://randomuser.me/api/portraits/women/12.jpg" alt="" />
 							</div>
-							<div class="name align-self-center">Louise Kelly <span class="position">Illustrator Designer</span></div>
+							<div class="name align-self-center">
+								Sahtha Albaw
+								<span class="position">Electrical Engineer</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -121,92 +171,6 @@
 		</div>
 	</section>
 
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row align-items-center">
-				<div class="col-md-6 pr-md-5">
-					<div class="heading-section text-md-right ftco-animate">
-						<span class="subheading">Discover</span>
-						<h2 class="mb-4">Our Menu</h2>
-						<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-						<p><a href="#" class="btn btn-primary btn-outline-primary px-4 py-3">View Full Menu</a></p>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="menu-entry">
-								<a href="#" class="img" style="background-image: url(images/menu-1.jpg);"></a>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="menu-entry mt-lg-4">
-								<a href="#" class="img" style="background-image: url(images/menu-2.jpg);"></a>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="menu-entry">
-								<a href="#" class="img" style="background-image: url(images/menu-3.jpg);"></a>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="menu-entry mt-lg-4">
-								<a href="#" class="img" style="background-image: url(images/menu-4.jpg);"></a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="ftco-counter ftco-bg-dark img" id="section-counter" style="background-image: url(images/bg_2.jpg);" data-stellar-background-ratio="0.5">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-10">
-					<div class="row">
-						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-							<div class="block-18 text-center">
-								<div class="text">
-									<div class="icon"><span class="flaticon-coffee-cup"></span></div>
-									<strong class="number" data-number="100">0</strong>
-									<span>Coffee Branches</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-							<div class="block-18 text-center">
-								<div class="text">
-									<div class="icon"><span class="flaticon-coffee-cup"></span></div>
-									<strong class="number" data-number="85">0</strong>
-									<span>Number of Awards</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-							<div class="block-18 text-center">
-								<div class="text">
-									<div class="icon"><span class="flaticon-coffee-cup"></span></div>
-									<strong class="number" data-number="10567">0</strong>
-									<span>Happy Customer</span>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
-							<div class="block-18 text-center">
-								<div class="text">
-									<div class="icon"><span class="flaticon-coffee-cup"></span></div>
-									<strong class="number" data-number="900">0</strong>
-									<span>Staff</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
 
 
 

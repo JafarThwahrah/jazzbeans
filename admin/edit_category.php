@@ -52,11 +52,11 @@ include "../methods.php";
                     </div>
                     <div class="form-group">
                         <label for="exampleTextarea1">Description</label>
-                        <textarea value="<?php echo $catg["description"]; ?>" name="editc_desc" class="form-control" id="exampleTextarea1" rows="4"></textarea>
+                        <input type="text" value="<?php echo $catg["description"]; ?>" name="editc_desc" class="form-control" id="exampleTextarea1" rows="4"></input>
                     </div>
                     <button name="editc_submit" type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <button class="btn btn-dark">Cancel</button>
                 </form>
+                <a href="http://localhost/jazzbeans/admin/dashboard.php#catdiv"> <button class="btn btn-danger mt-2">Cancel</button></a>
             </div>
         </div>
     </div>

@@ -72,11 +72,11 @@ $product =  getSingleProduct($_REQUEST["p_id"]);
                     </div>
                     <div class="form-group">
                         <label for="exampleTextarea1">Short Description</label>
-                        <textarea value="<?php echo $product["short_desc"]; ?>" name="addp_sdesc" class="form-control" placeholder="Short Description" id="exampleTextarea1" rows="2"></textarea>
+                        <input type="text" value="<?php echo $product["short_desc"]; ?>" name="addp_sdesc" class="form-control" placeholder="Short Description" id="exampleTextarea1" rows="2"></input>
                     </div>
                     <div class="form-group">
                         <label for="exampleTextarea1">Description</label>
-                        <textarea value="<?php echo $product["description"]; ?>" name="addp_desc" class="form-control" placeholder="Description" id="exampleTextarea1" rows="4"></textarea>
+                        <input type="text" value="<?php echo $product["description"]; ?>" name="addp_desc" class="form-control" placeholder="Description" id="exampleTextarea1" rows="4"></input>
                     </div>
                     <div class="form-group">
                         <label>Upload Image</label>
@@ -109,7 +109,7 @@ $product =  getSingleProduct($_REQUEST["p_id"]);
                     </div>
                     <div class="form-group">
                         <label for="exampleTextarea1">Tags</label>
-                        <textarea value="<?php echo $product["tags"]; ?>" name="addp_tags" class="form-control" id="exampleTextarea1" rows="4" placeholder="separate tags with a comma"></textarea>
+                        <input type="text" value="<?php echo $product["tags"]; ?>" name="addp_tags" class="form-control" id="exampleTextarea1" rows="4" placeholder="separate tags with a comma"></input>
                     </div>
                     <button name="addp_submit" type="submit" class="btn btn-primary mr-2">Submit</button>
                 </form>
