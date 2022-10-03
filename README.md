@@ -9,3 +9,6 @@
 | Technologies : | HTML 5 | CSS 3              | Bootstrap 5 | JavaScript | Ajax    | PHP | MySQL Database |
 
 [Organization Github](https://github.com/jazzbeans/jazzbeans)
+[Trello](https://trello.com/b/PJWRIjXH/e-comerce-php)
+[Wireframe and Mockup](https://drive.google.com/file/d/1SpGmXob7yVxg2Inf9aucy9fRct5zuKhw/view)
+
